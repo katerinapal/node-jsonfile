@@ -10,7 +10,7 @@ const jf = require('../')
 describe('+ writeFileSync()', () => {
   let TEST_DIR
 
-  beforeEach((done) => {
+  /*beforeEach((done) => {
     TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-writefile-sync')
     rimraf.sync(TEST_DIR)
     fs.mkdir(TEST_DIR, done)
@@ -18,6 +18,20 @@ describe('+ writeFileSync()', () => {
 
   afterEach((done) => {
     rimraf.sync(TEST_DIR)
+    done()
+  })*/
+
+    before((done) => {
+    //TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-readfile-sync')
+    TEST_DIR = path.resolve('./jsonfile-tests-writefile-sync');
+    //console.log(`TEST_DIR: ${TEST_DIR}`);
+    //console.log(path.resolve(TEST_DIR));
+    rimraf.sync(TEST_DIR)
+    fs.mkdir(TEST_DIR, done)
+  })
+
+  after((done) => {
+    //rimraf.sync(TEST_DIR)
     done()
   })
 
@@ -36,7 +50,8 @@ describe('+ writeFileSync()', () => {
 
   describe('> when JSON replacer is set', () => {
     it('should replace JSON', () => {
-      const file = path.join(TEST_DIR, 'somefile.json')
+      //const file = path.join(TEST_DIR, 'somefile.json')
+      const file = path.join(TEST_DIR, 'somefile5.json')
       const sillyReplacer = function (k, v) {
         if (!(v instanceof RegExp)) return v
         return `regex:${v.toString()}`
@@ -65,7 +80,8 @@ describe('+ writeFileSync()', () => {
     })
 
     it('should use EOL override', () => {
-      const file = path.join(TEST_DIR, 'somefile.json')
+      //const file = path.join(TEST_DIR, 'somefile.json')
+      const file = path.join(TEST_DIR, 'somefile3.json')
       const obj = { name: 'JP' }
       jf.writeFileSync(file, obj, { spaces: 2, EOL: '***' })
       const data = fs.readFileSync(file, 'utf8')
@@ -83,7 +99,7 @@ describe('+ writeFileSync()', () => {
     })
   })
   describe('> when EOF option is set to a falsey value', () => {
-    beforeEach((done) => {
+    /*beforeEach((done) => {
       TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-writefile-sync')
       rimraf.sync(TEST_DIR)
       fs.mkdir(TEST_DIR, done)
@@ -91,6 +107,18 @@ describe('+ writeFileSync()', () => {
 
     afterEach((done) => {
       rimraf.sync(TEST_DIR)
+      done()
+    })*/
+
+    before((done) => {
+      //TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-writefile-sync')
+      TEST_DIR = path.resolve('./jsonfile-tests-writefile-sync-2');
+      rimraf.sync(TEST_DIR)
+      fs.mkdir(TEST_DIR, done)
+    })
+
+    after((done) => {
+      //rimraf.sync(TEST_DIR)
       done()
     })
 

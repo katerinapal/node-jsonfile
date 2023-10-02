@@ -5,9 +5,23 @@ try {
   _fs = require('fs')
 }
 const universalify = require('universalify')
-const { stringify, stripBom } = require('./utils')
 
-async function _readFile (file, options = {}) {
+//REWRITTEN (object pattern not identified in dynamic analysis)
+//const { stringify, stripBom } = require('./utils')
+
+const utils = require('./utils');
+const stripBom = utils.stripBom;
+const stringify = utils.stringify;
+
+//async function _readFile (file, options = {}) {
+async function _readFile (file, options) {
+
+  //REWRITTEN TO BE ABLE TO SLICE OVER DEFAULT/UNDEFINED values
+  if(options == undefined) {
+  
+    options = {};
+  }
+
   if (typeof options === 'string') {
     options = { encoding: options }
   }
@@ -37,7 +51,15 @@ async function _readFile (file, options = {}) {
 
 const readFile = universalify.fromPromise(_readFile)
 
-function readFileSync (file, options = {}) {
+//function readFileSync (file, options = {}) {
+function readFileSync (file, options) {
+
+  //REWRITTEN TO BE ABLE TO SLICE OVER DEFAULT/UNDEFINED values
+  if(options == undefined) {
+  
+    options = {};
+  }
+
   if (typeof options === 'string') {
     options = { encoding: options }
   }
@@ -60,8 +82,15 @@ function readFileSync (file, options = {}) {
   }
 }
 
-async function _writeFile (file, obj, options = {}) {
+//async function _writeFile (file, obj, options = {}) {
+async function _writeFile (file, obj, options) {
   const fs = options.fs || _fs
+
+  //REWRITTEN TO BE ABLE TO SLICE OVER DEFAULT/UNDEFINED values
+  if(options == undefined) {
+  
+    options = {};
+  }
 
   const str = stringify(obj, options)
 
@@ -70,7 +99,15 @@ async function _writeFile (file, obj, options = {}) {
 
 const writeFile = universalify.fromPromise(_writeFile)
 
-function writeFileSync (file, obj, options = {}) {
+//function writeFileSync (file, obj, options = {}) {
+function writeFileSync (file, obj, options) {
+
+  //REWRITTEN TO BE ABLE TO SLICE OVER DEFAULT/UNDEFINED values
+  if(options == undefined) {
+  
+    options = {};
+  }
+
   const fs = options.fs || _fs
 
   const str = stringify(obj, options)

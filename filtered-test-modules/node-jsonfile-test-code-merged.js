@@ -1,9 +1,9 @@
-const assert = require('assert')
-const fs = require('fs')
-const os = require('os')
-const path = require('path')
-const rimraf = require('rimraf')
-const jf = require('../')
+var assert = require('assert');
+var fs = require('fs');
+var os = require('os');
+var path = require('path');
+var rimraf = require('rimraf');
+var jf = require('../');
 
 /* global describe it beforeEach afterEach */
 
@@ -284,3 +284,5 @@ describe('+ readFile()', () => {
     })
   })
 })
+
+

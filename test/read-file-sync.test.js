@@ -10,16 +10,32 @@ const jf = require('../')
 describe('+ readFileSync()', () => {
   let TEST_DIR
 
-  beforeEach((done) => {
-    TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-readfile-sync')
+  before((done) => {
+    //TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-readfile-sync')
+    TEST_DIR = path.resolve('./jsonfile-tests-readfile-sync');
+
     rimraf.sync(TEST_DIR)
     fs.mkdir(TEST_DIR, done)
   })
 
-  afterEach((done) => {
-    rimraf.sync(TEST_DIR)
+  after((done) => {
+    //rimraf.sync(TEST_DIR)
     done()
   })
+
+  /*beforeEach((done) => {
+    TEST_DIR = path.join(os.tmpdir(), 'jsonfile-tests-readfile-sync')
+    //TEST_DIR = path.resolve('./jsonfile-tests-readfile-sync');
+    //console.log(`TEST_DIR: ${TEST_DIR}`);
+    //console.log(path.resolve(TEST_DIR));
+    //rimraf.sync(TEST_DIR)
+    fs.mkdir(TEST_DIR, done)
+  })
+
+  afterEach((done) => {
+    //rimraf.sync(TEST_DIR)
+    done()
+  })*/
 
   it('should read and parse JSON', () => {
     const file = path.join(TEST_DIR, 'somefile3.json')
@@ -36,6 +52,7 @@ describe('+ readFileSync()', () => {
 
   describe('> when invalid JSON', () => {
     it('should include the filename in the error', () => {
+      //const fn = 'somefile.json'
       const fn = 'somefile.json'
       const file = path.join(TEST_DIR, fn)
       fs.writeFileSync(file, '{')
@@ -98,7 +115,8 @@ describe('+ readFileSync()', () => {
 
   describe('> when JSON reviver is set', () => {
     it('should transform the JSON', () => {
-      const file = path.join(TEST_DIR, 'somefile.json')
+      //const file = path.join(TEST_DIR, 'somefile.json')
+      const file = path.join(TEST_DIR, 'somefile2.json')
       const sillyReviver = function (k, v) {
         if (typeof v !== 'string') return v
         if (v.indexOf('date:') < 0) return v
@@ -120,7 +138,8 @@ describe('+ readFileSync()', () => {
 
   describe('> when passing encoding string as option', () => {
     it('should not throw an error', () => {
-      const file = path.join(TEST_DIR, 'somefile.json')
+      //const file = path.join(TEST_DIR, 'somefile.json')
+      const file = path.join(TEST_DIR, 'somefile4.json')
 
       const obj = {
         name: 'jp'

@@ -1,4 +1,32 @@
-function stringify (obj, { EOL = '\n', finalEOL = true, replacer = null, spaces } = {}) {
+/*function stringify (obj, { EOL = '\n', finalEOL = true, replacer = null, spaces } = {}) {
+  
+  const EOF = finalEOL ? EOL : ''
+  const str = JSON.stringify(obj, replacer, spaces)
+
+  return str.replace(/\n/g, EOL) + EOF
+}*/
+
+function stringify (obj, options) {
+  
+  let EOL;
+  let finalEOL; 
+  let replacer; 
+  let spaces;
+  if(options == undefined || options == {}) {
+  
+    EOL = '\n'; 
+    finalEOL = true; 
+    replacer = null; 
+    spaces = undefined;
+  }
+  else {
+  
+    EOL = options.EOL; 
+    finalEOL = options.finalEOL; 
+    replacer = options.replacer; 
+    spaces = options.spaces;
+  }
+
   const EOF = finalEOL ? EOL : ''
   const str = JSON.stringify(obj, replacer, spaces)
 
